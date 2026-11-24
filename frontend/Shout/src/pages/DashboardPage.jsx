@@ -1,6 +1,6 @@
 ﻿import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import "./DashboardPage.css";
 
 const NOTE_COLORS = ["#ffffff","#fff0f0","#fff8e1","#f0fff4","#f0f4ff","#fdf0ff"];
@@ -55,7 +55,7 @@ export default function DashboardPage() {
   const fetchNotes = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get("/notes", { headers: { authorization: token } });
+      const res = await api.get("/notes", { headers: { authorization: token } });
       setNotes(res.data.notes || []);
     } catch { setNotes([]); }
     setLoading(false);
@@ -78,9 +78,9 @@ export default function DashboardPage() {
     setSaving(true);
     try {
       if (editNote) {
-        await axios.put(`/notes/${editNote._id}`, form, { headers: { authorization: token } });
+        await api.put(`/notes/${editNote._id}`, form, { headers: { authorization: token } });
       } else {
-        await axios.post("/notes", form, { headers: { authorization: token } });
+        await api.post("/notes", form, { headers: { authorization: token } });
       }
       await fetchNotes();
       setShowEditor(false);
@@ -91,7 +91,7 @@ export default function DashboardPage() {
   const deleteNote = async (id, e) => {
     e.stopPropagation();
     try {
-      await axios.delete(`/notes/${id}`, { headers: { authorization: token } });
+      await api.delete(`/notes/${id}`, { headers: { authorization: token } });
       setNotes(prev => prev.filter(n => n._id !== id));
     } catch {}
   };

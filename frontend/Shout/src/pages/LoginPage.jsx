@@ -1,9 +1,7 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import "./LoginPage.css";
-
-const API = "";
 
 export default function LoginPage() {
   const [mode, setMode] = useState("login");
@@ -25,14 +23,14 @@ export default function LoginPage() {
     setLoading(true); setError(""); setSuccess("");
     try {
       if (mode === "register") {
-        const res = await axios.post(`${API}/user/register`, form);
+        const res = await api.post(`/user/register`, form);
         if (res.data.msg === "User registered successfully") {
           setSuccess("Account created! You can now log in.");
           setMode("login");
           setForm({ name: "", email: form.email, password: "" });
         } else { setError(res.data.msg); }
       } else {
-        const res = await axios.post(`${API}/user/login`, { email: form.email, password: form.password });
+        const res = await api.post(`/user/login`, { email: form.email, password: form.password });
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userName", res.data.name || form.email.split("@")[0]);
