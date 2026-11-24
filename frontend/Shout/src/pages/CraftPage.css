@@ -1,0 +1,152 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap");
+
+.craft-page {
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* HEADER */
+.craft-header {
+  position: absolute;
+  top: 20px; left: 28px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.craft-logo {
+  display: flex; align-items: center; gap: 8px;
+}
+.craft-logo-text {
+  font-family: "Caveat", cursive;
+  font-size: 1.05rem; font-weight: 700; color: #1a1a1a;
+}
+.craft-main-title {
+  font-family: "Caveat", cursive;
+  font-size: 3rem; font-weight: 700;
+  color: #1a1a1a; margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+/* MAP */
+.map-wrap {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.campus-svg {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  display: block;
+}
+
+/* BUILDINGS */
+.building { cursor: pointer; outline: none; }
+.building .hit-fill { fill: #e8504a; opacity: 0; transition: opacity 0.3s ease; }
+.building.is-hovered .hit-fill,
+.building:focus-visible .hit-fill { opacity: 0.28; }
+
+.building .linework line,
+.building .linework rect,
+.building .linework path,
+.building .linework circle,
+.building .linework ellipse,
+.building .linework polygon { transition: stroke 0.3s ease; }
+
+.building.is-hovered .linework line,
+.building.is-hovered .linework rect,
+.building.is-hovered .linework path,
+.building.is-hovered .linework circle,
+.building.is-hovered .linework ellipse,
+.building.is-hovered .linework polygon,
+.building:focus-visible .linework line,
+.building:focus-visible .linework rect,
+.building:focus-visible .linework path,
+.building:focus-visible .linework circle,
+.building:focus-visible .linework ellipse { stroke: #b8302a; }
+
+.building:focus-visible { outline: 2px solid #e8504a; outline-offset: 3px; border-radius: 3px; }
+
+/* FLOW LINES */
+.flow { opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+.flow.flow-on { opacity: 0.85; animation: flowDash 1.2s linear infinite; }
+@keyframes flowDash { to { stroke-dashoffset: -36; } }
+@media (prefers-reduced-motion: reduce) { .flow.flow-on { animation: none; } }
+
+/* LABEL CARDS */
+.label-card { transition: transform 0.2s ease; }
+.label-card:hover { transform: translateY(-2px); }
+
+/* PANEL */
+.dashboard-panel {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeInBg 0.2s ease;
+}
+@keyframes fadeInBg { from{opacity:0} to{opacity:1} }
+
+.panel-inner {
+  background: #fff;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%; max-width: 440px;
+  position: relative;
+  animation: slideUp 0.28s cubic-bezier(0.22,1,0.36,1);
+  box-shadow: 5px 5px 0 rgba(26,26,26,0.1);
+}
+@keyframes slideUp { from{transform:translateY(24px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+.panel-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; cursor: pointer;
+  color: #1a1a1a; padding: 4px; border-radius: 6px;
+  transition: background 0.2s;
+}
+.panel-close:hover { background: rgba(229,57,53,0.1); }
+
+.panel-title {
+  font-family: "Caveat", cursive;
+  font-size: 1.6rem; font-weight: 700;
+  color: #1a1a1a; margin: 0 0 0.3rem;
+}
+.panel-desc {
+  font-family: "Caveat", cursive;
+  font-size: 1rem; color: #888; margin: 0 0 1.4rem;
+}
+
+.panel-stats {
+  display: flex; gap: 0.8rem; margin-bottom: 1.2rem; flex-wrap: wrap;
+}
+.stat-card {
+  flex: 1; min-width: 90px;
+  background: #fafafa; border: 1.5px solid #eee;
+  border-radius: 10px; padding: 0.9rem 0.7rem;
+  text-align: center; transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card:hover { border-color: #e8504a; transform: translateY(-2px); }
+.stat-val { display: block; font-family: "Caveat",cursive; font-size: 1.5rem; font-weight: 700; color: #e8504a; }
+.stat-label { display: block; font-family: "Caveat",cursive; font-size: 0.82rem; color: #999; margin-top: 2px; }
+
+.panel-body {
+  font-family: "Caveat", cursive;
+  font-size: 0.95rem; color: #bbb;
+  text-align: center; padding-top: 1rem;
+  border-top: 1px dashed #eee;
+}
+
+@media (max-width: 600px) {
+  .craft-main-title { font-size: 2rem; }
+  .panel-stats { gap: 0.5rem; }
+}
